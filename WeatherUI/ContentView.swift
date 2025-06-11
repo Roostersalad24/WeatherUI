@@ -13,9 +13,9 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            BackgroundView(isNight: $isNight)
+            BackgroundView(isNight: isNight)
             VStack(spacing: 8) {
-                CityTextView(cityName: "Cuppertino, CA")
+                CityTextView(cityName: "Dallas, TX")
                 
                 MainWeatherStatusView(imageName: isNight ? "moon.stars.fill" : "cloud.sun.fill", temperature: isNight ? 64 : 76)
                    
@@ -46,7 +46,7 @@ struct ContentView: View {
                     Button {
                         isNight.toggle()
                     } label: {
-                        WeatherButton(title: "Change Day Time",
+                        WeatherButton(title: isNight ? "Day Weather" : "Night Weather",
                                       textColor: .blue,
                                       backgroundColor: .white)
                     }
@@ -88,7 +88,7 @@ struct ContentView: View {
     
     struct BackgroundView: View {
         
-        @Binding var isNight: Bool
+        var isNight: Bool
         
        
         var body: some View {
@@ -117,7 +117,7 @@ struct MainWeatherStatusView: View {
     var temperature: Int
     var body: some View {
         Image(systemName: imageName)
-            .renderingMode(.original)
+            .symbolRenderingMode(.multicolor)
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: 180, height: 180)
